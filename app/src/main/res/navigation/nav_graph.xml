@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment2">
+
+<!--    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.slngl.moviebank.view.fragments.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchMoviesFragment"
+            app:destination="@id/searchMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_moviesFragment"
+            app:destination="@id/moviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/actorDetailsFragment"
+        android:name="com.slngl.moviebank.view.fragments.ActorDetailsFragment"
+        android:label="ActorDetailsFragment" >
+        <action
+            android:id="@+id/action_actorDetailsFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.slngl.moviebank.view.fragments.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" >
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_actorDetailsFragment"
+            app:destination="@id/actorDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.slngl.moviebank.view.fragments.MoviesFragment"
+        android:label="MoviesFragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+        <argument
+            android:name="movieCategory"
+            android:defaultValue="Popular"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/wishListFragment"
+        android:name="com.slngl.moviebank.view.fragments.WishListFragment"
+        android:label="WishListFragment" >
+        <action
+            android:id="@+id/action_wishListFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchMoviesFragment"
+        android:name="com.slngl.moviebank.view.fragments.SearchMoviesFragment"
+        android:label="SearchMoviesFragment" />-->
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.slngl.moviebank.view.fragments.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment2_to_moviesFragment2"
+            app:destination="@id/moviesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesFragment2"
+        android:name="com.slngl.moviebank.view.fragments.MoviesFragment"
+        android:label="MoviesFragment" />
+</navigation>
