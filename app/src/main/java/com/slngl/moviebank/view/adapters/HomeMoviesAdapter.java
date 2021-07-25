@@ -7,13 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.slngl.moviebank.base.AppConstants;
 import com.slngl.moviebank.databinding.ItemHomeMovieBinding;
 import com.slngl.moviebank.model.Movie;
+import com.slngl.moviebank.view.fragments.HomeFragmentDirections;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,18 +31,18 @@ public class HomeMoviesAdapter extends RecyclerView.Adapter<HomeMoviesAdapter.Ho
         this.context = context;
     }
 
-    public void setMovieList(ArrayList<Movie> movieList){
-        this.movieList=movieList;
+    public void setMovieList(ArrayList<Movie> movieList) {
+        this.movieList = movieList;
         notifyDataSetChanged();
     }
 
-    static class HomeMoviesViewHolder extends RecyclerView.ViewHolder{
+    static class HomeMoviesViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemHomeMovieBinding binding;
 
         public HomeMoviesViewHolder(ItemHomeMovieBinding binding) {
             super(binding.getRoot());
-            this.binding=binding;
+            this.binding = binding;
         }
     }
 
@@ -59,19 +60,21 @@ public class HomeMoviesAdapter extends RecyclerView.Adapter<HomeMoviesAdapter.Ho
 
         Movie item = movieList.get(position);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.binding.movieItemRelativeLayout.setClipToOutline(true);
         }
         holder.binding.movieItemName.setText(item.getTitle());
         holder.binding.movieItemVotes.setText(item.getVote_count().toString());
 
-        Glide.with(context).load(AppConstants.ImageBaseURLw500+item.getPoster_path())
+        Glide.with(context).load(AppConstants.ImageBaseURLw500 + item.getPoster_path())
                 .into(holder.binding.movieItemImage);
 
         holder.binding.movieItemRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //navigate movieDetails
+                //navigate to movieDetails
+                HomeFragmentDirections.ActionHomeFragment2ToMoviesFragment2 action = HomeFragmentDirections.actionHomeFragment2ToMoviesFragment2(item.getId());
+                Navigation.findNavController(v).navigate(action);
             }
         });
     }

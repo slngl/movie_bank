@@ -64,10 +64,14 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment2_to_moviesFragment2"
-            app:destination="@id/moviesFragment2" />
+            app:destination="@id/movieDetailssFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/moviesFragment2"
-        android:name="com.slngl.moviebank.view.fragments.MoviesFragment"
-        android:label="MoviesFragment" />
+        android:id="@+id/movieDetailssFragment2"
+        android:name="com.slngl.moviebank.view.fragments.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
