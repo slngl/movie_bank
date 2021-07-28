@@ -28,7 +28,6 @@ public class HomeFragment extends Fragment {
     private HomeViewModel viewModel;
     private FragmentHomeBinding binding;
     private HomeMoviesAdapter upcomingAdapter, popularAdapter, topRatedAdapter;
-    private ArrayList<Movie> currentList;
 
     @Nullable
     @Override
@@ -43,32 +42,23 @@ public class HomeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(HomeFragment.this).get(HomeViewModel.class);
 
-        currentList = new ArrayList<>();
-
-        observeData();
 
         viewModel.getPopularMovies();
-        viewModel.getCurrentlyShowingMovies();
         viewModel.getTopRatedMovies();
         viewModel.getUpComingMovies();
 
+        observeData();
 
     }
 
     private void observeData() {
 
-        viewModel.getCurrentlyShowingList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
-            @Override
-            public void onChanged(ArrayList<Movie> movies) {
-                //set viewpager adapter
-            }
-        });
 
         viewModel.getPopularMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
-//                popularAdapter.setMovieList(movies);
                 popularAdapter = new HomeMoviesAdapter(movies, getContext());
+                popularAdapter.notifyDataSetChanged();
                 binding.popularRecyclerView.setAdapter(popularAdapter);
             }
         });
@@ -77,6 +67,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
                 topRatedAdapter = new HomeMoviesAdapter(movies, getContext());
+                topRatedAdapter.notifyDataSetChanged();
                 binding.topRatedRecyclerView.setAdapter(topRatedAdapter);
             }
         });
@@ -85,6 +76,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
                 upcomingAdapter = new HomeMoviesAdapter(movies, getContext());
+                upcomingAdapter.notifyDataSetChanged();
                 binding.upcomingRecyclerView.setAdapter(upcomingAdapter);
             }
         });

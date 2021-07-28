@@ -27,7 +27,6 @@ public class HomeViewModel extends ViewModel {
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final MovieRepository repository;
 
-    private final MutableLiveData<ArrayList<Movie>> currentMovieList = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Movie>> popularMovieList = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Movie>> topRatedMovieList = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Movie>> upcomingMovieList = new MutableLiveData<>();
@@ -41,46 +40,12 @@ public class HomeViewModel extends ViewModel {
         return popularMovieList;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getCurrentlyShowingList() {
-        return currentMovieList;
-    }
-
     public MutableLiveData<ArrayList<Movie>> getTopRatedMoviesList() {
         return topRatedMovieList;
     }
 
     public MutableLiveData<ArrayList<Movie>> getUpcomingMoviesList() {
         return upcomingMovieList;
-    }
-
-
-    public void getCurrentlyShowingMovies() {
-        disposable.add(repository.getCurrentlyShowing()
-                .subscribeOn(Schedulers.io())
-                .map(new Function<MovieResponse, ArrayList<Movie>>() {
-                    @Override
-                    public ArrayList<Movie> apply(MovieResponse movieResponse) throws Throwable {
-                        return movieResponse.getResults();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<ArrayList<Movie>>() {
-                    @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull ArrayList<Movie> movies) {
-                        currentMovieList.setValue(movies);
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                })
-        );
     }
 
     public void getPopularMovies() {

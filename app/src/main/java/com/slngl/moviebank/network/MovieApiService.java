@@ -14,9 +14,6 @@ import retrofit2.http.QueryMap;
 public interface MovieApiService {
     //dcfd36b48a497a19d36968a699d24add
 
-    @GET("movie/now_playing")
-    Observable<MovieResponse> getCurrentlyShowing();
-
     @GET("movie/popular")
     Observable<MovieResponse> getPopular();
 

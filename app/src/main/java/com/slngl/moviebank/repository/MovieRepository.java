@@ -21,10 +21,6 @@ public class MovieRepository {
         this.apiService=apiService;
     }
 
-    public Observable<MovieResponse> getCurrentlyShowing(){
-        return apiService.getCurrentlyShowing();
-    }
-
     public Observable<MovieResponse> getPopular(){
         return apiService.getPopular();
     }

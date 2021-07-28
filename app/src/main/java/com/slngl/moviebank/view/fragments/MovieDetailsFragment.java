@@ -32,10 +32,7 @@ public class MovieDetailsFragment extends Fragment {
 
     private MovieDetailsViewModel viewModel;
     private FragmentMovieDetailBinding binding;
-    private Integer movieId;
     private CastAdapter castAdapter;
-    private Movie mMovie;
-    private ArrayList<Cast> castList;
     private int hour = 0, min = 0;
     private String genre, videoId;
 
@@ -52,9 +49,9 @@ public class MovieDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(MovieDetailsFragment.this).get(MovieDetailsViewModel.class);
-        castList = new ArrayList<Cast>();
+        ArrayList<Cast> castList = new ArrayList<Cast>();
         MovieDetailsFragmentArgs args = MovieDetailsFragmentArgs.fromBundle(getArguments());
-        movieId = args.getMovieId();
+        int movieId = args.getMovieId();
 
         //get data from vm
         viewModel.getMovieDetails(movieId);
@@ -68,20 +65,13 @@ public class MovieDetailsFragment extends Fragment {
         castAdapter = new CastAdapter(getContext(), castList);
         binding.castRecyclerView.setAdapter(castAdapter);
 
-        binding.playTrailer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if videoId not null, start to video dialog
-            }
-        });
-
     }
 
     public void observeData() {
         viewModel.getMovieDetails().observe(getViewLifecycleOwner(), new Observer<Movie>() {
             @Override
             public void onChanged(Movie movie) {
-                mMovie = movie;
+
                 Glide.with(requireContext()).load(AppConstants.ImageBaseURL + movie.getPoster_path())
                         .centerCrop()
                         .into(binding.moviePoster);
@@ -102,12 +92,9 @@ public class MovieDetailsFragment extends Fragment {
                 }
 
                 binding.movieGenre.setText(genre);
-                binding.playTrailer.setVisibility(View.VISIBLE);
                 binding.movieCastText.setVisibility(View.VISIBLE);
                 binding.moviePlotText.setVisibility(View.VISIBLE);
 
-                JsonArray array = movie.getVideos().getAsJsonArray("results");
-                videoId = array.get(0).getAsJsonObject().get("key").getAsString();
 
 
             }

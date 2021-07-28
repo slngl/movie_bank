@@ -18,18 +18,10 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/cornered_background"
                             android:id="@+id/moviePoster"
+                            android:layout_margin="5dp"
+
                             />
 
-                        <ImageView
-                            android:id="@+id/playTrailer"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_below="@id/moviePoster"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="-30dp"
-                            android:src="@drawable/ic_play_circle_filled_black_24dp"
-                            android:visibility="gone"
-                            tools:visibility="visible" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/movieName"

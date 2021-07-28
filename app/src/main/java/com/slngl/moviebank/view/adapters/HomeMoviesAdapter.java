@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class HomeMoviesAdapter extends RecyclerView.Adapter<HomeMoviesAdapter.HomeMoviesViewHolder> {
 
-    private ArrayList<Movie> movieList;
+    private final ArrayList<Movie> movieList;
     private ItemHomeMovieBinding binding;
     private final Context context;
 
@@ -31,10 +31,6 @@ public class HomeMoviesAdapter extends RecyclerView.Adapter<HomeMoviesAdapter.Ho
         this.context = context;
     }
 
-    public void setMovieList(ArrayList<Movie> movieList) {
-        this.movieList = movieList;
-        notifyDataSetChanged();
-    }
 
     static class HomeMoviesViewHolder extends RecyclerView.ViewHolder {
 
