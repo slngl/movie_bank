@@ -12,12 +12,10 @@ import com.google.gson.reflect.TypeToken;
 import com.slngl.moviebank.model.Cast;
 import com.slngl.moviebank.model.Genre;
 import com.slngl.moviebank.model.Movie;
-import com.slngl.moviebank.repository.MovieRepository;
+import com.slngl.moviebank.usecase.MovieUsecase;
 
 import java.util.ArrayList;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -27,24 +25,24 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @HiltViewModel
 public class MovieDetailsViewModel extends ViewModel {
     private final CompositeDisposable disposable = new CompositeDisposable();
-    private final MovieRepository repository;
+    private final MovieUsecase usecase;
 
     private final MutableLiveData<ArrayList<Cast>> movieCastList = new MutableLiveData<>();
 
     private final MutableLiveData<Movie> movieDetails = new MutableLiveData<>();
+
     public MutableLiveData<Movie> getMovieDetails() {
         return movieDetails;
     }
 
 
-
     @Inject
-    public MovieDetailsViewModel(MovieRepository repository) {
-        this.repository = repository;
+    public MovieDetailsViewModel(MovieUsecase usecase) {
+        this.usecase = usecase;
     }
 
     public void getMovieDetails(int movieId) {
-        disposable.add(repository.getMovieDetails(movieId)
+        disposable.add(usecase.getMovieDetails(movieId)
                 .subscribeOn(Schedulers.io())
                 .map(new Function<Movie, Movie>() {
                     @Override
@@ -66,7 +64,7 @@ public class MovieDetailsViewModel extends ViewModel {
     }
 
     public void getCasts(int movieId) {
-        disposable.add(repository.getCast(movieId)
+        disposable.add(usecase.getCast(movieId)
                 .subscribeOn(Schedulers.io())
                 .map(new Function<JsonObject, ArrayList<Cast>>() {
                     @Override
@@ -85,6 +83,7 @@ public class MovieDetailsViewModel extends ViewModel {
     public MutableLiveData<ArrayList<Cast>> getMovieCastList() {
         return movieCastList;
     }
+
     @Override
     protected void onCleared() {
         super.onCleared();
