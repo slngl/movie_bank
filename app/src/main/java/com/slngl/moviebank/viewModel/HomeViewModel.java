@@ -25,13 +25,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class HomeViewModel extends ViewModel {
 
     private final CompositeDisposable disposable = new CompositeDisposable();
-    private MovieRepository repository;
+    private final MovieRepository repository;
 
-    private MutableLiveData<ArrayList<Movie>> currentMovieList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> popularMovieList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> topRatedMovieList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> upcomingMovieList = new MutableLiveData<>();
-    private MutableLiveData<Movie> movieDetails = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> currentMovieList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> popularMovieList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> topRatedMovieList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> upcomingMovieList = new MutableLiveData<>();
 
     @Inject
     public HomeViewModel(MovieRepository repository) {
@@ -54,9 +53,6 @@ public class HomeViewModel extends ViewModel {
         return upcomingMovieList;
     }
 
-    public MutableLiveData<Movie> getMovieDetails() {
-        return movieDetails;
-    }
 
     public void getCurrentlyShowingMovies() {
         disposable.add(repository.getCurrentlyShowing()
@@ -113,27 +109,7 @@ public class HomeViewModel extends ViewModel {
         );
     }
 
-    public void getMovieDetails(int movieId) {
-        disposable.add(repository.getMovieDetails(movieId)
-                .subscribeOn(Schedulers.io())
-                .map(new Function<Movie, Movie>() {
-                    @Override
-                    public Movie apply(Movie movie) throws Throwable {
-                        ArrayList<String> genreNames = new ArrayList<>();
-                        //MovieResponse gives list of genre(object) so we will map each id toit genre name here
 
-                        for (Genre genre : movie.getGenres()) {
-                            genreNames.add(genre.getName());
-                        }
-                        movie.setGenre_names(genreNames);
-                        return movie;
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> movieDetails.setValue(result),
-                        error -> Log.e("HomeViewModel", "getMovieDetails:" + error.getMessage()))
-        );
-    }
 
     @Override
     protected void onCleared() {

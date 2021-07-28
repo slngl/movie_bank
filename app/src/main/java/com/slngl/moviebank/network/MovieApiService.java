@@ -1,5 +1,6 @@
 package com.slngl.moviebank.network;
 
+import com.google.gson.JsonObject;
 import com.slngl.moviebank.model.Movie;
 import com.slngl.moviebank.model.MovieResponse;
 
@@ -27,5 +28,8 @@ public interface MovieApiService {
 
     @GET("movie/{movie_id}")
     Observable<Movie> getMovieDetails(@Path("movie_id") int id);
+
+    @GET("movie/{movie_id}/credits")
+    Observable<JsonObject> getCast(@Path ("movie_id") int id);
 
 }
